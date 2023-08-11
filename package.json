@@ -2,7 +2,7 @@
   "name": "goldstrongXXXI.github.io",
   "version": "4.4.0",
   "description": "A vue admin template with Element UI & axios & iconfont & permission control & lint",
-  "author": "Pan <panfree23@gmail.com>",
+  "author": "Pan <rlarkd8180624@gmail.com>",
   "scripts": {
     "dev": "set NODE_OPTIONS=--openssl-legacy-provider & vue-cli-service serve",
     "build:prod": "set NODE_OPTIONS=--openssl-legacy-provider & vue-cli-service build",
