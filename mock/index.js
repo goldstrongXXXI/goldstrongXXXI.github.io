@@ -9,6 +9,7 @@ const company = require('./company')
 const labor = require('./labor')
 const outsourcing = require('./outsourcing')
 const materials = require('./materials')
+const expense = require('./expense')
 
 const mocks = [
   ...user,
@@ -18,7 +19,8 @@ const mocks = [
   ...company,
   ...labor,
   ...outsourcing,
-  ...materials
+  ...materials,
+  ...expense
 ]
 
 // for front mock

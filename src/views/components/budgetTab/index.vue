@@ -10,7 +10,9 @@
       <el-tab-pane label="材料费">
         <materialsTab style="width: 100%" />
       </el-tab-pane>
-      <el-tab-pane label="经费">经费</el-tab-pane>
+      <el-tab-pane label="经费">
+        <expenseTab style="width: 100%" />
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -18,12 +20,14 @@
 import laborTab from '@/views/components/budgetTab/laborTab/index.vue'
 import outsourcingTab from '@/views/components/budgetTab/outsourcingTab/index.vue'
 import materialsTab from '@/views/components/budgetTab/materialsTab/index.vue'
+import expenseTab from '@/views/components/budgetTab/expenseTab/index.vue'
 
 export default {
   components: {
     laborTab,
     outsourcingTab,
-    materialsTab
+    materialsTab,
+    expenseTab
   },
   data() {
     return {}
