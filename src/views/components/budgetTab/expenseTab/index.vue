@@ -19,6 +19,10 @@
             :data="accountList"
           >
             <el-table-column
+              type="selection"
+              align="center"
+            />
+            <el-table-column
               prop="account_code"
               label="凭证号"
               width="65%"
@@ -40,6 +44,7 @@
             height="600"
             border
             :data="tableData"
+            @select="handleTbChk"
           >
             <el-table-column
               type="selection"
@@ -67,7 +72,7 @@
 
             <el-table-column v-for="column in tmpDailyColumns" :key="column" :label="column">
               <template slot-scope="scope">
-                <el-input v-model="scope.row.daily.value" size="mini" :value="scope.row.daily.name === column ? scope.row.daily.value : 0" />
+                <el-input v-model="scope.row[column]" size="mini" />
                 <!-- <span>{{ scope.row.daily.name === column ? scope.row.daily.value : 0 }}</span> -->
               </template>
             </el-table-column>
@@ -147,6 +152,9 @@ export default {
           this.tableData.splice(index, 1)
         }
       })
+
+      /* 初始化左侧Account数据 */
+      this.initAccountList()
     },
     /* 操作，编辑 */
     handleEdit(index, row) {
@@ -155,7 +163,32 @@ export default {
     },
     /* 选择凭证 */
     handleDragAccount() {
-      console.log('handleDragAccount >>>')
+      console.log('handleDragAccount >>>', this.$refs.accountListRef.selection)
+      console.log('handleDragAccount tableData>>>', this.tableData)
+      /* 1.右侧: 添加expense List */
+      const selAccouts = this.$refs.accountListRef.selection
+      selAccouts.forEach(element => {
+        const newExpense = {
+          account: {},
+          daily: []
+        }
+
+        newExpense.account = Object.assign(newExpense.account, element)
+        this.tableData.push(newExpense)
+      })
+
+      /* 更新左侧Accout数据 */
+      this.initAccountList()
+    },
+    /*  更新左侧AccountList */
+    initAccountList() {
+      console.log('initAccountList str >>>')
+      let newArr = this.tmpAccountList
+      this.tableData.forEach((element) => {
+        newArr = newArr.filter(accout => accout.account_code !== element.account.account_code)
+      })
+
+      this.accountList = newArr
     }
   }
 }

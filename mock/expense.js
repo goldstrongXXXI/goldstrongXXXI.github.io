@@ -11,22 +11,36 @@ const data = Mock.mock({
         { account_code: '1004', account_name: '书籍费' },
         { account_code: '1005', account_name: '管理费' }
       ],
-      daily: [
-        { name: '202201', value: '@integer(0, 99999)' },
-        { name: '202202', value: '@integer(0, 99999)' },
-        { name: '202205', value: '@integer(0, 99999)' },
-        { name: '202206', value: '@integer(0, 99999)' },
-        { name: '202209', value: '@integer(0, 99999)' },
-        { name: '202211', value: '@integer(0, 99999)' },
-        { name: '202212', value: '@integer(0, 99999)' },
-        { name: '202301', value: '@integer(0, 99999)' },
-        { name: '202302', value: '@integer(0, 99999)' },
-        { name: '202305', value: '@integer(0, 99999)' },
-        { name: '202306', value: '@integer(0, 99999)' },
-        { name: '202309', value: '@integer(0, 99999)' },
-        { name: '202311', value: '@integer(0, 99999)' },
-        { name: '202312', value: '@integer(0, 99999)' }
-      ]
+      '202201': '@integer(0, 99999)',
+      '202202': '@integer(0, 99999)',
+      '202205': '@integer(0, 99999)',
+      '202206': '@integer(0, 99999)',
+      '202209': '@integer(0, 99999)',
+      '202211': '@integer(0, 99999)',
+      '202212': '@integer(0, 99999)',
+      '202301': '@integer(0, 99999)',
+      '202302': '@integer(0, 99999)',
+      '202305': '@integer(0, 99999)',
+      '202306': '@integer(0, 99999)',
+      '202309': '@integer(0, 99999)',
+      '202311': '@integer(0, 99999)',
+      '202312': '@integer(0, 99999)'
+      // daily: [
+      //   { name: '202201', value: '@integer(0, 99999)' },
+      //   { name: '202202', value: '@integer(0, 99999)' },
+      //   { name: '202205', value: '@integer(0, 99999)' },
+      //   { name: '202206', value: '@integer(0, 99999)' },
+      //   { name: '202209', value: '@integer(0, 99999)' },
+      //   { name: '202211', value: '@integer(0, 99999)' },
+      //   { name: '202212', value: '@integer(0, 99999)' },
+      //   { name: '202301', value: '@integer(0, 99999)' },
+      //   { name: '202302', value: '@integer(0, 99999)' },
+      //   { name: '202305', value: '@integer(0, 99999)' },
+      //   { name: '202306', value: '@integer(0, 99999)' },
+      //   { name: '202309', value: '@integer(0, 99999)' },
+      //   { name: '202311', value: '@integer(0, 99999)' },
+      //   { name: '202312', value: '@integer(0, 99999)' }
+      // ]
     }
   ],
   dailyColumns: [
