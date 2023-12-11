@@ -44,18 +44,18 @@ const data = Mock.mock({
     }
   ],
   dailyColumns: [
-    '202301',
-    '202302',
-    '202303',
-    '202304',
-    '202305',
-    '202306',
-    '202307',
-    '202308',
-    '202309',
-    '202310',
-    '202311',
-    '202312'
+    { prop: '202301', label: '2023年1月', status: 'normal' },
+    { prop: '202302', label: '2023年2月', status: 'normal' },
+    { prop: '202303', label: '2023年3月', status: 'normal' },
+    { prop: '202304', label: '2023年4月', status: 'normal' },
+    { prop: '202305', label: '2023年5月', status: 'normal' },
+    { prop: '202306', label: '2023年6月', status: 'normal' },
+    { prop: '202307', label: '2023年7月', status: 'normal' },
+    { prop: '202308', label: '2023年8月', status: 'normal' },
+    { prop: '202309', label: '2023年9月', status: 'normal' },
+    { prop: '202310', label: '2023年10月', status: 'normal' },
+    { prop: '202311', label: '2023年11月', status: 'normal' },
+    { prop: '202312', label: '2023年12月', status: 'normal' }
   ],
   'acounts|6': [
     {

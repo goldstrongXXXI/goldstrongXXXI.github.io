@@ -5,7 +5,9 @@
       <el-header>
         <el-button-group style="float: right">
           <el-button type="primary" icon="el-icon-edit" @click="showSide = !showSide">show</el-button>
-          <el-button type="danger" icon="el-icon-delete" @click="delAccount">删除</el-button>
+          <el-button type="primary" icon="el-icon-edit" @click="addCol">列添加</el-button>
+          <el-button type="danger" icon="el-icon-edit" @click="delCol">列删除</el-button>
+          <el-button type="danger" icon="el-icon-delete" @click="delAccount">行删除</el-button>
         </el-button-group>
       </el-header>
 
@@ -40,7 +42,7 @@
         <el-main>
           <el-table
             ref="expenseRef"
-            style="width: 100%;"
+            style="width: 100%"
             height="600"
             border
             :data="tableData"
@@ -49,11 +51,13 @@
             <el-table-column
               type="selection"
               align="center"
+              fixed
             />
             <el-table-column
               prop="account_code"
               label="凭证号"
               width="100"
+              fixed
             >
               <template slot-scope="scope">
                 <span>{{ scope.row.account.account_code }}</span>
@@ -64,21 +68,23 @@
               prop="account_name"
               label="凭证名"
               width="100"
+              fixed
             >
               <template slot-scope="scope">
                 <span>{{ scope.row.account.account_name }}</span>
               </template>
             </el-table-column>
 
-            <el-table-column v-for="column in tmpDailyColumns" :key="column" :label="column">
+            <el-table-column v-for="column in tmpDailyColumns" :key="column.prop" :label="column.label" width="100">
               <template slot-scope="scope">
-                <el-input v-model="scope.row[column]" size="mini" />
+                <el-input v-model="scope.row[column.prop]" size="mini" />
                 <!-- <span>{{ scope.row.daily.name === column ? scope.row.daily.value : 0 }}</span> -->
               </template>
             </el-table-column>
           </el-table>
         </el-main>
       </el-container>
+      <el-footer>Footer</el-footer>
     </el-container>
   </div>
 </template>
@@ -93,7 +99,7 @@ export default {
       showSide: false,
       tempSelectRow: '',
       tableData: [],
-      tmpDailyColumns: [],
+      tmpDailyColumns: [{ prop: '', lable: '' }],
       tempSelectedData: [],
       accountList: [],
       tmpAccountList: [
@@ -123,6 +129,14 @@ export default {
       this.tmpDailyColumns = response.data.items
     })
   },
+  beforeUpdate() {
+    console.log('beforeUpdate >>>>>>>', this.$refs.expenseRef)
+    this.$nextTick(() => {
+      if (this.$refs.expenseRef && this.$refs.expenseRef.doLayout) {
+        this.$refs.expenseRef.doLayout()
+      }
+    })
+  },
   methods: {
     /* 表尾合计行 */
     getSummaries(columns, data) {
@@ -140,6 +154,27 @@ export default {
       this.tempSelectedData = selection
       console.log('tempSelectedData >>>>', this.tempSelectedData)
     },
+    /* 列添加 */
+    addCol() {
+      console.log('addCol $refs>>>>>', this.$refs.expenseRef)
+      /* 设置添加表头日期 */
+      const newYM = this.setDate()
+      this.tmpDailyColumns.push({ prop: newYM.yyyymm, label: newYM.year + '年' + newYM.month + '月', status: 'add' })
+      this.tableData.map(item => {
+        this.$set(item, newYM, 0)
+      })
+      console.log('addCol this.tableData>>>>>', this.tableData)
+    },
+    /* 列删除 */
+    delCol() {
+      console.log('delCol')
+      this.tmpDailyColumns.some(element => {
+        if (element.status === 'add') {
+          this.tmpDailyColumns.splice(-1, 1)
+          return true
+        }
+      })
+    },
     /* 删除 */
     delAccount() {
       /* 实际删除应走后端，但现在只呈现画面效果 */
@@ -155,6 +190,24 @@ export default {
 
       /* 初始化左侧Account数据 */
       this.initAccountList()
+    },
+    /* 设置添加日期(列) */
+    setDate() {
+      let lastYm = { prop: '', label: '', status: 'add' }
+      lastYm = this.tmpDailyColumns[this.tmpDailyColumns.length - 1]
+      let lastYear = lastYm.prop.substring(0, 4)
+      let lastMonth = lastYm.prop.substring(4, 6)
+      if (Number(lastMonth) === 12) {
+        lastYear = Number(lastYear) + 1
+        lastMonth = '01'
+      } else {
+        lastMonth = Number(lastMonth) + 1
+      }
+      return { yyyymm: String(lastYear) + String(lastMonth), year: String(lastYear), month: String(lastMonth) }
+    },
+    /* 设置要添加的列属性 */
+    setColumnAttr() {
+      console.log('setColumnAttr >>>>', this.tmpDailyColumns[this.tmpDailyColumns.length - 1].prop)
     },
     /* 操作，编辑 */
     handleEdit(index, row) {
